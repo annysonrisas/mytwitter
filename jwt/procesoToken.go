@@ -12,12 +12,13 @@ var Email string
 var IDUsuario string
 
 func ProcesoToken(tk string, jwtsign string) (*models.Claim, bool, string, error) {
-	miClave := []byte(JWTSign)
+	miClave := []byte(jwtsign)
 	var claims models.Claim
 
 	splitToken := strings.Split(tk, "Bearer")
 	if len(splitToken) != 2 {
 		return &claims, false, string(""), errors.New("Formato de token invalido")
+
 	}
 
 	tk = strings.TrimSpace(splitToken[1])
