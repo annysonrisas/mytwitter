@@ -12,7 +12,6 @@ import (
 	"github.com/anny/mytwitter/secretmanager"
 	"github.com/aws/aws-lambda-go/events"
 	lambda "github.com/aws/aws-lambda-go/lambda"
-	"github.com/aws/aws-sdk-go-v2/internal/strings"
 )
 
 func main() {
@@ -24,7 +23,7 @@ func EjecutoLambda(ctx context.Context, request events.APIGatewayProxyRequest) (
 
 	awsgo.InicializoAWS()
 
-	if !ValidoParametos() {
+	if !ValidoParametros() {
 		res = &events.APIGatewayProxyResponse{
 			StatusCode: 400,
 			Body:       "Error en las variables de entorno. Deben incluir 'SecretName', 'BucketName', ÜrlPrefix'",
@@ -47,7 +46,7 @@ func EjecutoLambda(ctx context.Context, request events.APIGatewayProxyRequest) (
 		return res, nil
 	}
 
-	path := strings.Replace(request.PathParameters["twitterGo"], os.Getenv("UrlPefix"), "", -1)
+	path := strings.Replace(request.PathParameters["twittergo"], os.Getenv("UrlPefix"), "", -1)
 
 	awsgo.Ctx = context.WithValue(awsgo.Ctx, models.Key("path"), path)
 	awsgo.Ctx = context.WithValue(awsgo.Ctx, models.Key("method"), request.HTTPMethod)
